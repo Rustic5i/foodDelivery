@@ -17,6 +17,6 @@ public class Controller {
     @GetMapping
     public String delete(){
         basketService.addProduct(UUID.randomUUID());
-        return "deadaw";
+        return "test";
     }
 }
