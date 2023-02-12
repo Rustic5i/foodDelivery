@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>foodDelivery</artifactId>
+        <groupId>ru.rbaratov.foodDelivery</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>repository</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>liquibase</module>
+        <module>repository-basket</module>
+        <module>repository-order</module>
+        <module>repository-product</module>
+        <module>repository-user</module>
+        <module>repository-configuration</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>ru.rbaratov.foodDelivery</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+    </dependencies>
+</project>

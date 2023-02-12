@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.5</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <foodDelivery.version>1.0-SNAPSHOT</foodDelivery.version>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
+        <java.version>18</java.version>
+        <start-class>ru.rbaratov.fooddelivery.FoodDeliverySpringBootApplication</start-class>
+    </properties>
+
+    <groupId>ru.rbaratov.foodDelivery</groupId>
+    <artifactId>foodDelivery</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>domain</module>
+        <module>services</module>
+        <module>application-spring-boot</module>
+        <module>repository</module>
+        <module>api</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>api</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>services</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>domain</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>liquibase</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>repository-configuration</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>repository-basket</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>repository-order</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>repository-product</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>repository-user</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-security</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.liquibase</groupId>-->
+        <!--            <artifactId>liquibase-core</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.security</groupId>-->
+        <!--            <artifactId>spring-security-test</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--            <plugin>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <mainClass>start-class</mainClass>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
