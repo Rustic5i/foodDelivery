@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>ru.rbaratov.foodDelivery</groupId>
-            <artifactId>services</artifactId>
+            <artifactId>menu</artifactId>
         </dependency>
         <dependency>
             <groupId>ru.rbaratov.foodDelivery</groupId>
@@ -39,10 +39,6 @@
         <dependency>
             <groupId>ru.rbaratov.foodDelivery</groupId>
             <artifactId>repository-order</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ru.rbaratov.foodDelivery</groupId>
-            <artifactId>repository-product</artifactId>
         </dependency>
         <dependency>
             <groupId>ru.rbaratov.foodDelivery</groupId>

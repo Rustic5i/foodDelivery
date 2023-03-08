@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>ru.rbaratov.foodDelivery</groupId>
-            <artifactId>services</artifactId>
+            <artifactId>menu</artifactId>
         </dependency>
     </dependencies>
 </project>

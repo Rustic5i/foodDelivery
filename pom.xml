@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>3.0.2</version>
         <relativePath/>
     </parent>
 
@@ -16,6 +16,7 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
         <java.version>18</java.version>
+        <apache.commons>3.12.0</apache.commons>
         <start-class>ru.rbaratov.fooddelivery.FoodDeliverySpringBootApplication</start-class>
     </properties>
 
@@ -26,7 +27,7 @@
 
     <modules>
         <module>domain</module>
-        <module>services</module>
+        <module>sales</module>
         <module>application-spring-boot</module>
         <module>repository</module>
         <module>api</module>
@@ -41,7 +42,7 @@
             </dependency>
             <dependency>
                 <groupId>ru.rbaratov.foodDelivery</groupId>
-                <artifactId>services</artifactId>
+                <artifactId>menu</artifactId>
                 <version>${foodDelivery.version}</version>
             </dependency>
             <dependency>
@@ -71,11 +72,6 @@
             </dependency>
             <dependency>
                 <groupId>ru.rbaratov.foodDelivery</groupId>
-                <artifactId>repository-product</artifactId>
-                <version>${foodDelivery.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ru.rbaratov.foodDelivery</groupId>
                 <artifactId>repository-user</artifactId>
                 <version>${foodDelivery.version}</version>
             </dependency>
@@ -96,10 +92,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-security</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <!--        <dependency>-->
         <!--            <groupId>org.liquibase</groupId>-->
         <!--            <artifactId>liquibase-core</artifactId>-->
@@ -119,9 +115,9 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.commons}</version>
         </dependency>
     </dependencies>
 
