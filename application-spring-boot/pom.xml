@@ -18,11 +18,19 @@
         </dependency>
         <dependency>
             <groupId>ru.rbaratov.foodDelivery</groupId>
-            <artifactId>menu</artifactId>
+            <artifactId>domain</artifactId>
         </dependency>
         <dependency>
             <groupId>ru.rbaratov.foodDelivery</groupId>
-            <artifactId>domain</artifactId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.rbaratov.foodDelivery</groupId>
+            <artifactId>menu-manager-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.rbaratov.foodDelivery</groupId>
+            <artifactId>orders-context</artifactId>
         </dependency>
         <dependency>
             <groupId>ru.rbaratov.foodDelivery</groupId>

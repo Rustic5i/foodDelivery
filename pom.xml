@@ -17,6 +17,9 @@
         <maven.compiler.target>18</maven.compiler.target>
         <java.version>18</java.version>
         <apache.commons>3.12.0</apache.commons>
+        <commons.validator>1.7</commons.validator>
+        <libphonenumber>8.13.7</libphonenumber>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
         <start-class>ru.rbaratov.fooddelivery.FoodDeliverySpringBootApplication</start-class>
     </properties>
 
@@ -27,7 +30,6 @@
 
     <modules>
         <module>domain</module>
-        <module>sales</module>
         <module>application-spring-boot</module>
         <module>repository</module>
         <module>api</module>
@@ -42,12 +44,22 @@
             </dependency>
             <dependency>
                 <groupId>ru.rbaratov.foodDelivery</groupId>
-                <artifactId>menu</artifactId>
+                <artifactId>domain</artifactId>
                 <version>${foodDelivery.version}</version>
             </dependency>
             <dependency>
                 <groupId>ru.rbaratov.foodDelivery</groupId>
-                <artifactId>domain</artifactId>
+                <artifactId>common</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>menu-manager-context</artifactId>
+                <version>${foodDelivery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.rbaratov.foodDelivery</groupId>
+                <artifactId>orders-context</artifactId>
                 <version>${foodDelivery.version}</version>
             </dependency>
             <dependency>
@@ -118,6 +130,21 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${apache.commons}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>${commons.validator}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.libphonenumber</groupId>
+            <artifactId>libphonenumber</artifactId>
+            <version>${libphonenumber}</version>
         </dependency>
     </dependencies>
 
