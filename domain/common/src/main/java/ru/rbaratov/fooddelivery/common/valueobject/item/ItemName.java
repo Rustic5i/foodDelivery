@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 import ru.rbaratov.fooddelivery.common.valueobject.ValueObject;
 
 import java.text.MessageFormat;
+import java.util.Objects;
 
 /**
  * Имя товара
@@ -37,5 +38,18 @@ public final class ItemName implements ValueObject<String> {
 
     public String value() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemName itemName = (ItemName) o;
+        return Objects.equals(name, itemName.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

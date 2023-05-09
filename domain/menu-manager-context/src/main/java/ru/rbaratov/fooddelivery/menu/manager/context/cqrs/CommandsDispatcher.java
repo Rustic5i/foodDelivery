@@ -16,7 +16,7 @@ public class CommandsDispatcher {
     @Autowired
     public ProviderCommandHandler providerCommandHandler;
 
-    public Objects run(Command command) {
+    protected Objects run(Command command) {
         CommandHandler commandHandler = providerCommandHandler.getHandler(command);
         return (Objects) commandHandler.execute(command);
     }

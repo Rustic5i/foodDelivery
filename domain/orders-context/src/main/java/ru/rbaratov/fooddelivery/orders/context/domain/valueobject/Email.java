@@ -37,7 +37,7 @@ public final class Email implements ValueObject<String> {
      *
      * @param email электронная почта
      */
-    public static void validation(String email) {
+    private static void validation(String email) {
         Objects.requireNonNull(email);
         boolean isValid = EMAIL_VALIDATOR.isValid(email);
         if (!isValid) {

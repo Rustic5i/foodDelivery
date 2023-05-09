@@ -48,6 +48,9 @@ public class AddNewItemToMenuCommand implements Command {
      */
     private String itemCategory;
 
+    public AddNewItemToMenuCommand() {
+    }
+
     @Override
     public boolean asynchronous() {
         return false;
@@ -83,5 +86,37 @@ public class AddNewItemToMenuCommand implements Command {
 
     public String getItemCategory() {
         return itemCategory;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    public void setItemSize(Integer itemSize) {
+        this.itemSize = itemSize;
+    }
+
+    public void setSizeUnit(SizeUnit sizeUnit) {
+        this.sizeUnit = sizeUnit;
+    }
+
+    public void setSet(boolean set) {
+        isSet = set;
+    }
+
+    public void setItemCategory(String itemCategory) {
+        this.itemCategory = itemCategory;
     }
 }
