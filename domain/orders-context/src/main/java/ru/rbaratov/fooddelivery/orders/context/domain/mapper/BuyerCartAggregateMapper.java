@@ -1,7 +1,9 @@
 package ru.rbaratov.fooddelivery.orders.context.domain.mapper;
 
-import ru.rbaratov.fooddelivery.orders.context.domain.BuyerCart;
-import ru.rbaratov.fooddelivery.orders.context.entity.BuyerCartEntity;
+import ru.rbaratov.fooddelivery.orders.context.domain.Buyer;
+import ru.rbaratov.fooddelivery.orders.context.domain.Cart;
+import ru.rbaratov.fooddelivery.orders.context.entity.BuyerEntity;
+import ru.rbaratov.fooddelivery.orders.context.entity.CartEntity;
 
 /**
  * Маппер агрегата
@@ -13,12 +15,14 @@ public interface BuyerCartAggregateMapper {
      * @param entity из чего
      * @return
      */
-    BuyerCart toBuyerCart(BuyerCartEntity entity);
+    Cart toBuyerCart(CartEntity entity);
 
     /**
      * Преобразовать в Entity
      * @param аggregate из чего
      * @return
      */
-    BuyerCartEntity toBuyerCartEntity(BuyerCart аggregate);
+    CartEntity toBuyerCartEntity(Cart аggregate);
+
+    Buyer to(BuyerEntity entity);
 }

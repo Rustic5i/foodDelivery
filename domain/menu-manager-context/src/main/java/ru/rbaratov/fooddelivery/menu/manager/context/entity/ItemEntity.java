@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Товар
  */
-@Entity
+@Entity(name = "ItemEntityMaster")
 @Table(name = "items")
 public final class ItemEntity extends AbstractEntity {
 
@@ -72,7 +72,7 @@ public final class ItemEntity extends AbstractEntity {
      */
     @ManyToOne
     @JoinColumn(name = "category")
-    private ItemCategoryEntity category;
+    private CategoryEntity category;
 
     /**
      * В каком меню состоит
@@ -147,11 +147,11 @@ public final class ItemEntity extends AbstractEntity {
         isSet = set;
     }
 
-    public ItemCategoryEntity getCategory() {
+    public CategoryEntity getCategory() {
         return category;
     }
 
-    public void setCategory(ItemCategoryEntity category) {
+    public void setCategory(CategoryEntity category) {
         this.category = category;
     }
 

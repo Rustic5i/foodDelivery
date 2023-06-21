@@ -1,9 +1,9 @@
 package ru.rbaratov.fooddelivery.orders.context.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-public class BuyerCartDTO {
+public class CartInfoDTO {
 
     /**
      * Итоговая цена
@@ -13,7 +13,7 @@ public class BuyerCartDTO {
     /**
      * Список товаров
      */
-    private Set<CartItemDTO> items = new HashSet<>();
+    private List<CartItemDTO> selectItems = new ArrayList<>();
 
     public Float getTotalPrice() {
         return totalPrice;
@@ -23,11 +23,11 @@ public class BuyerCartDTO {
         this.totalPrice = totalPrice;
     }
 
-    public Set<CartItemDTO> getItems() {
-        return items;
+    public List<CartItemDTO> getSelectItems() {
+        return selectItems;
     }
 
-    public void setItems(Set<CartItemDTO> items) {
-        this.items = items;
+    public void setSelectItems(List<CartItemDTO> selectItems) {
+        this.selectItems = selectItems;
     }
 }

@@ -17,24 +17,22 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "cart_item")
-@Embeddable
-public class SelectItemInCartEntity extends AbstractEntity {
+public class CartItemEntity extends AbstractEntity {
 
     /**
      * Товар
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id", nullable = false)
+    @JoinColumn(name = "item_id", nullable = false, updatable = false, insertable = false)
     private ItemEntity item;
 
-
-    @Column(name = "item_id", updatable = true, insertable = true)
+    @Column(name = "item_id")
     private UUID idItem;
 
     /**
      * Количество товара
      */
-    @Column(name = "showQuantity", nullable = false)
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
     /**
@@ -42,7 +40,7 @@ public class SelectItemInCartEntity extends AbstractEntity {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false)
-    private BuyerCartEntity buyerCart;
+    private CartEntity buyerCart;
 
     /**
      * Итоговая цена
@@ -62,7 +60,7 @@ public class SelectItemInCartEntity extends AbstractEntity {
         this.quantity = quantity;
     }
 
-    public BuyerCartEntity getBuyerCart() {
+    public CartEntity getBuyerCart() {
         return buyerCart;
     }
 
@@ -80,5 +78,9 @@ public class SelectItemInCartEntity extends AbstractEntity {
 
     public void setIdItem(UUID idItem) {
         this.idItem = idItem;
+    }
+
+    public void setBuyerCart(CartEntity buyerCart) {
+        this.buyerCart = buyerCart;
     }
 }

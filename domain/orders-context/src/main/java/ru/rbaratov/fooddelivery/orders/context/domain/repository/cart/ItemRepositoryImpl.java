@@ -30,7 +30,11 @@ public class ItemRepositoryImpl implements ItemRepository {
         if (entityOptional.isEmpty()) {
             throw new RuntimeApplicationException(MessageFormat.format("Товар с id {} не найден", id));
         }
-        ItemEntity item = entityOptional.get();
-        return new Item(new ItemName(item.getName()), new Money(item.getPrice()));
+        ItemEntity entity = entityOptional.get();
+        return Item.startRevival()
+                .requiredId(entity.getId())
+                .requiredName(new ItemName(entity.getName()))
+                .requiredPrice(new Money(entity.getPrice()))
+                .revive();
     }
 }

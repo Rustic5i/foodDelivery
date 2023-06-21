@@ -7,14 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rbaratov.fooddelivery.common.cqrs.command.Command;
 import ru.rbaratov.fooddelivery.common.cqrs.handler.CommandHandler;
-import ru.rbaratov.fooddelivery.common.valueobject.item.MenuName;
 import ru.rbaratov.fooddelivery.menu.manager.context.cqrs.commands.AddNewItemToMenuCommand;
 import ru.rbaratov.fooddelivery.menu.manager.context.domain.Item;
 import ru.rbaratov.fooddelivery.menu.manager.context.domain.Menu;
 import ru.rbaratov.fooddelivery.menu.manager.context.domain.factory.ItemFactory;
 import ru.rbaratov.fooddelivery.menu.manager.context.domain.repository.MenuAggregateRepository;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @Service
@@ -44,14 +42,12 @@ public class AddNewItemToMenuCommandHandler implements CommandHandler<Void, AddN
     public Void execute(AddNewItemToMenuCommand command) {
         Objects.requireNonNull(command, "При добавлении нового товара в меню, не было передана информация о новом товаре");
 
-        MenuName menuName = new MenuName(command.getMenuName());
-        Menu menu = aggregateRepository.findByName(menuName)
-                .orElseThrow(() -> new RuntimeException(MessageFormat.format("Меню с именем \"{0}\" не найдено", menuName.value())));
+        Menu menu = aggregateRepository.getMenu();
         Item newItem = itemFactory.createNewItem(command);
         menu.addNewItem(newItem);
         aggregateRepository.save(menu);
 
-        LOGGER.info("В меню \"{}\" добавлен новый товар \"{}\"", menuName.value(), newItem.getName().value());
+        LOGGER.info("В меню добавлен новый товар \"{}\"", newItem.getName().value());
         return null;
     }
 

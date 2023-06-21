@@ -1,52 +1,27 @@
 package ru.rbaratov.fooddelivery.orders.context.dto;
 
-import ru.rbaratov.fooddelivery.common.valueobject.SizeUnit;
+import java.util.UUID;
 
 public class ItemDTO {
+
+    private UUID id;
+
     /**
      * Имя товара
      */
-    private String itemName;
-
-    /**
-     * Категория товара
-     */
-    private String category;
-
-    /**
-     * Описание
-     */
-    private String description;
-
-    /**
-     * Единица измерения
-     */
-    private SizeUnit sizeUnit;
+    private String name;
 
     /**
      * Цена
      */
     private Float price;
 
-    /**
-     * Размер, вес, обьем и тд
-     */
-    private Integer size;
-
-    public String getCategory() {
-        return category;
+    public String getName() {
+        return name;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Float getPrice() {
@@ -57,27 +32,11 @@ public class ItemDTO {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
+    public UUID getId() {
+        return id;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public SizeUnit getSizeUnit() {
-        return sizeUnit;
-    }
-
-    public void setSizeUnit(SizeUnit sizeUnit) {
-        this.sizeUnit = sizeUnit;
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

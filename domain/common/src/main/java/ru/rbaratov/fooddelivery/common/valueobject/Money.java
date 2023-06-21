@@ -35,6 +35,7 @@ public final class Money implements ValueObject<Float> {
      * @return сумма денег
      */
     public Money add(Money summand) {
+        money = money + summand.value();
         return new Money(money + summand.value());
     }
 

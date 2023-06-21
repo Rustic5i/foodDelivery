@@ -1,4 +1,4 @@
-package ru.rbaratov.fooddelivery.common.domain;
+package ru.rbaratov.fooddelivery.orders.context.domain;
 
 import java.util.UUID;
 

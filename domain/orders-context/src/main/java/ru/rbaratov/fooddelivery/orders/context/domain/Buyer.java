@@ -1,10 +1,11 @@
 package ru.rbaratov.fooddelivery.orders.context.domain;
 
-import ru.rbaratov.fooddelivery.common.domain.AbstractDomain;
+
 import ru.rbaratov.fooddelivery.orders.context.domain.valueobject.Email;
 import ru.rbaratov.fooddelivery.orders.context.domain.valueobject.PhoneNumber;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Покупатель
@@ -28,10 +29,7 @@ public class Buyer extends AbstractDomain {
      */
     private boolean isActive = true;
 
-    public Buyer(PhoneNumber phoneNumber, String firstName, boolean isActive) {
-        this.phoneNumber = phoneNumber;
-        this.firstName = firstName;
-        this.isActive = isActive;
+    private Buyer() {
     }
 
     public PhoneNumber getPhoneNumber() {
@@ -40,5 +38,64 @@ public class Buyer extends AbstractDomain {
 
     public boolean isActive() {
         return isActive;
+    }
+
+    public static IdBuilder startRevival() {
+        return new Builder();
+    }
+
+    public interface IdBuilder {
+        PhoneNumberBuilder requiredId(UUID id);
+    }
+
+    public interface PhoneNumberBuilder{
+        FirstNameBuilder requiredPhoneNumber(PhoneNumber phoneNumber);
+    }
+
+    public interface FirstNameBuilder {
+        IsActiveBuilder requiredFirstName(String firstName);
+    }
+
+    public interface IsActiveBuilder{
+        FinalBuilder requiredIsActive(boolean isActive);
+    }
+
+    public interface FinalBuilder {
+        Buyer revive();
+    }
+
+    private static class Builder implements IdBuilder,
+            PhoneNumberBuilder, FirstNameBuilder, IsActiveBuilder, FinalBuilder {
+
+        private Buyer buyer = new Buyer();
+
+        @Override
+        public PhoneNumberBuilder requiredId(UUID id) {
+            buyer.id = id;
+            return this;
+        }
+
+        @Override
+        public FirstNameBuilder requiredPhoneNumber(PhoneNumber phoneNumber) {
+            buyer.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        @Override
+        public IsActiveBuilder requiredFirstName(String firstName) {
+            buyer.firstName = firstName;
+            return this;
+        }
+
+        @Override
+        public FinalBuilder requiredIsActive(boolean isActive) {
+            buyer.isActive = isActive;
+            return this;
+        }
+
+        @Override
+        public Buyer revive() {
+            return buyer;
+        }
     }
 }

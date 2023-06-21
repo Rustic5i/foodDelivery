@@ -1,7 +1,5 @@
 package ru.rbaratov.fooddelivery.orders.context.domain;
 
-import ru.rbaratov.fooddelivery.common.domain.AbstractDomain;
-
 /**
  * Адреса покупателя
  */

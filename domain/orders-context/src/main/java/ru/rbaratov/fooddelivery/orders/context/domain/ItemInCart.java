@@ -11,7 +11,7 @@ import java.util.UUID;
  * Выбранный товар в корзине.
  * Связь корзина-товар
  */
-public class SelectItemInCart extends AbstractEntity {
+public class ItemInCart extends AbstractEntity {
 
     /**
      * Товар
@@ -28,13 +28,13 @@ public class SelectItemInCart extends AbstractEntity {
      */
     private Money totalPrice = new Money(0);
 
-    public SelectItemInCart(Item item, Quantity quantity) {
+    private ItemInCart(Item item, Quantity quantity) {
         this.item = item;
         this.quantity = quantity;
         recalculateTotalPrice();
     }
 
-    protected SelectItemInCart(Item item) {
+    protected ItemInCart(Item item) {
         Objects.requireNonNull(item);
         this.item = item;
         quantity.increment();
@@ -101,9 +101,61 @@ public class SelectItemInCart extends AbstractEntity {
     /**
      * Сделать перерасчет итоговый цены по данной позиции
      */
-    protected SelectItemInCart recalculateTotalPrice() {
+    protected ItemInCart recalculateTotalPrice() {
         totalPrice = new Money(item.getPrice());
-        totalPrice.multiply(quantity.value());
+        totalPrice = totalPrice.multiply(quantity.value());
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (this == o) return true;
+        if (!(o instanceof ItemInCart)) return false;
+
+        ItemInCart that = (ItemInCart) o;
+        if (that.getItem() == null || item == null) {
+            return false;
+        }
+        if (that.getItem().getId() == null || item.getId() == null) {
+            return false;
+        }
+        return getItem().getId().equals(that.getItem().getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return item == null || item.getId() == null ? 0 : Objects.hash(item.id);
+    }
+
+    public static RequiredValues startRevival() {
+        return new Builder();
+    }
+
+    public interface RequiredValues {
+        FinalBuilder requiredValues(Item item, Quantity quantity, UUID id);
+    }
+
+
+    public interface FinalBuilder {
+        ItemInCart revive();
+    }
+
+    private static class Builder implements FinalBuilder, RequiredValues {
+
+        private ItemInCart itemInCart;
+
+
+        @Override
+        public FinalBuilder requiredValues(Item item, Quantity quantity, UUID id) {
+            itemInCart = new ItemInCart(item, quantity);
+            itemInCart.id = id;
+            return this;
+        }
+
+        @Override
+        public ItemInCart revive() {
+            return itemInCart;
+        }
     }
 }

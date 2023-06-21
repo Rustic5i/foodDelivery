@@ -3,35 +3,27 @@ package ru.rbaratov.fooddelivery.menu.manager.context.cqrs.commands;
 import ru.rbaratov.fooddelivery.common.cqrs.command.Command;
 
 /**
- * Команда, добавить новую категорию товаров в меню
+ * Команда, создать новую категорию товаров в меню
  */
-public class AddNewCategoryToMenuCommand implements Command {
+public class CreateNewCategoryCommand implements Command {
 
     /**
      * Название новой категории
      */
     private String categoryName;
 
-    /**
-     * Названия меню
-     */
-    private String menuName;
 
-    AddNewCategoryToMenuCommand() {
+    CreateNewCategoryCommand() {
     }
 
-    public AddNewCategoryToMenuCommand(String categoryName, String menuName) {
+    public CreateNewCategoryCommand(String categoryName) {
         this.categoryName = categoryName;
-        this.menuName = menuName;
     }
 
     public String getCategoryName() {
         return categoryName;
     }
 
-    public String getMenuName() {
-        return menuName;
-    }
 
     @Override
     public boolean asynchronous() {

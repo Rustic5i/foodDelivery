@@ -4,13 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.rbaratov.fooddelivery.common.valueobject.Money;
-import ru.rbaratov.fooddelivery.common.valueobject.item.CategoryName;
 import ru.rbaratov.fooddelivery.common.valueobject.item.ItemDescription;
 import ru.rbaratov.fooddelivery.common.valueobject.item.ItemName;
 import ru.rbaratov.fooddelivery.common.valueobject.item.ItemSize;
 import ru.rbaratov.fooddelivery.menu.manager.context.cqrs.commands.AddNewItemToMenuCommand;
+import ru.rbaratov.fooddelivery.menu.manager.context.domain.Category;
 import ru.rbaratov.fooddelivery.menu.manager.context.domain.Item;
-import ru.rbaratov.fooddelivery.menu.manager.context.domain.ItemCategory;
 
 import java.util.Objects;
 
@@ -35,7 +34,7 @@ public class ItemFactory {
                 new Money(command.getPrice()),
                 new ItemDescription(command.getItemDescription()),
                 new ItemSize(command.getItemSize(), command.getSizeUnit()),
-                new ItemCategory(new CategoryName(command.getItemCategory())),
+                new Category(command.getItemCategory()),
                 null);
         LOGGER.info("Создан новый товар с именем : \"{}\"", itemName.value());
         return newItem;

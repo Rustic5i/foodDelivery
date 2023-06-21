@@ -6,7 +6,7 @@
 //import ru.rbaratov.fooddelivery.common.valueobject.item.CategoryName;
 //import ru.rbaratov.fooddelivery.common.valueobject.item.MenuName;
 //import ru.rbaratov.fooddelivery.menu.manager.context.entity.ItemEntity;
-//import ru.rbaratov.fooddelivery.menu.manager.context.entity.ItemCategoryEntity;
+//import ru.rbaratov.fooddelivery.menu.manager.context.entity.CategoryEntity;
 //import ru.rbaratov.fooddelivery.menu.manager.context.entity.MenuEntity;
 //import ru.rbaratov.fooddelivery.menu.manager.context.dto.ItemDTO;
 //import ru.rbaratov.fooddelivery.menu.manager.context.domain.factory.ItemFactory;
@@ -34,17 +34,17 @@
 //    protected CategoryRepository categoryRepository;
 //
 //    protected ItemEntity createAndSaveItem(@NonNull final String itemName, @NonNull final String categoryName) {
-//        ItemCategoryEntity itemCategory = createAndSaveItemCategory(categoryName);
+//        CategoryEntity itemCategory = createAndSaveItemCategory(categoryName);
 //        ItemDTO itemDTO = getItemDTO(itemName, itemCategory.nameCategory());
 //        ItemEntity item = itemFactory.createNewItem(itemDTO);
 //        return itemRepository.save(item);
 //    }
 //
-//    protected ItemCategoryEntity createAndSaveItemCategory(final String categoryName) {
+//    protected CategoryEntity createAndSaveItemCategory(final String categoryName) {
 //        CategoryName newCategoryName = new CategoryName(categoryName);
-//        Optional<ItemCategoryEntity> itemCategory = categoryRepository.findByName(newCategoryName);
+//        Optional<CategoryEntity> itemCategory = categoryRepository.findByName(newCategoryName);
 //        if (itemCategory.isEmpty()) {
-//            return categoryRepository.save(new ItemCategoryEntity(newCategoryName));
+//            return categoryRepository.save(new CategoryEntity(newCategoryName));
 //        }
 //        return itemCategory.get();
 //    }

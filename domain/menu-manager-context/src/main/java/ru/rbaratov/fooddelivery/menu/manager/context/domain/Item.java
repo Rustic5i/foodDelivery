@@ -6,12 +6,12 @@ import ru.rbaratov.fooddelivery.common.valueobject.Money;
 import ru.rbaratov.fooddelivery.common.valueobject.item.ItemDescription;
 import ru.rbaratov.fooddelivery.common.valueobject.item.ItemName;
 import ru.rbaratov.fooddelivery.common.valueobject.item.ItemSize;
-import ru.rbaratov.fooddelivery.menu.manager.context.entity.MenuEntity;
 
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 public class Item extends AbstractDomain {
 
@@ -53,18 +53,21 @@ public class Item extends AbstractDomain {
     /**
      * Категория товара
      */
-    private ItemCategory category;
+    private Category category;
 
-    /**
-     * В каком меню состоит
-     */
-    private Set<MenuEntity> menu = new HashSet<>();
+//    /**
+//     * В каком меню состоит
+//     */
+//    private Set<Menu> menu = new HashSet<>();
+
+    private Item() {
+    }
 
     public Item(@NonNull ItemName name,
                 @NonNull Money price,
                 @NonNull ItemDescription description,
                 @NonNull ItemSize size,
-                @NonNull ItemCategory category,
+                @NonNull Category category,
                 Money oldPrice) {
         if (name == null) {
             throw new RuntimeException("Товар не может быть без имени");
@@ -78,13 +81,8 @@ public class Item extends AbstractDomain {
         if (size == null) {
             throw new RuntimeException("Товар не может быть без указания размера");
         }
-        if (category == null) {
+        if (category == null || category.getName() == null) {
             throw new RuntimeException("У товара не указана категория");
-        }
-        if (category.getId() == null) {
-            throw new RuntimeException(
-                    MessageFormat.format("Ошибка при создания товара с именем {0}. Категория товара с именем {1} еще не создана или не сохранена",
-                            name.value(), category.nameCategory().value()));
         }
         this.oldPrice = oldPrice;
         this.name = name;
@@ -116,7 +114,7 @@ public class Item extends AbstractDomain {
     }
 
     public Money getOldPrice() {
-        return oldPrice;
+        return oldPrice == null ? null : oldPrice;
     }
 
     public boolean isNewItem() {
@@ -135,11 +133,117 @@ public class Item extends AbstractDomain {
         return isSet;
     }
 
-    public ItemCategory getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public Set<MenuEntity> getMenu() {
-        return menu;
+//    public Set<Menu> getMenu() {
+//        return menu;
+//    }
+
+    public static IdBuilder startRevival() {
+        return new Builder();
+    }
+
+    public interface IdBuilder {
+        NameBuilder requiredId(UUID id);
+    }
+
+    public interface NameBuilder {
+        PriceBuilder requiredName(ItemName name);
+    }
+
+    public interface PriceBuilder {
+        OldPriceBuilder requiredPrice(Money price);
+    }
+
+    public interface OldPriceBuilder {
+        ItemDescriptionBuilder requiredOldPrice(Money oldPrice);
+    }
+
+    public interface ItemDescriptionBuilder {
+        ItemSizeBuilder requiredItemDescription(ItemDescription itemDescription);
+    }
+
+    public interface ItemSizeBuilder {
+        CategoryBuilder requiredItemSize(ItemSize itemSize);
+    }
+
+    public interface CategoryBuilder {
+        FinalBuilder requiredCategory(Category category);
+    }
+
+
+    public interface FinalBuilder {
+        FinalBuilder setIsNewItem(boolean isNewItem);
+
+//        FinalBuilder setMenu(Set<Menu> menu);
+
+        Item revive();
+    }
+
+    private static class Builder implements IdBuilder, NameBuilder,PriceBuilder,OldPriceBuilder,
+            ItemDescriptionBuilder,ItemSizeBuilder, CategoryBuilder,FinalBuilder {
+
+        private Item item = new Item();
+
+        @Override
+        public NameBuilder requiredId(UUID id) {
+            item.id = id;
+            return this;
+        }
+
+        @Override
+        public PriceBuilder requiredName(ItemName name) {
+            item.name = name;
+            return this;
+        }
+
+        @Override
+        public OldPriceBuilder requiredPrice(Money price) {
+            item.price = price;
+            return this;
+        }
+
+        @Override
+        public ItemDescriptionBuilder requiredOldPrice(Money oldPrice) {
+            item.oldPrice = oldPrice;
+            return this;
+        }
+
+        @Override
+        public ItemSizeBuilder requiredItemDescription(ItemDescription itemDescription) {
+            item.description = itemDescription;
+            return this;
+        }
+
+        @Override
+        public CategoryBuilder requiredItemSize(ItemSize itemSize) {
+            item.size = itemSize;
+            return this;
+        }
+
+        @Override
+        public FinalBuilder requiredCategory(Category category) {
+            item.category= category;
+            return this;
+        }
+
+        @Override
+        public FinalBuilder setIsNewItem(boolean isNewItem) {
+            item.isNewItem = isNewItem;
+            return this;
+        }
+
+//        @Override
+//        public FinalBuilder setMenu(Set<Menu> menu) {
+//            item.menu = menu;
+//            return this;
+//        }
+
+        @Override
+        public Item revive() {
+            return item;
+        }
     }
 }

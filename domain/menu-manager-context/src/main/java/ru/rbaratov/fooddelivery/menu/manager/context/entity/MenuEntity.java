@@ -1,10 +1,12 @@
 package ru.rbaratov.fooddelivery.menu.manager.context.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import ru.rbaratov.fooddelivery.common.entity.AbstractEntity;
 
@@ -27,7 +29,7 @@ public final class MenuEntity extends AbstractEntity {
     /**
      * Список товара
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "menu_item", joinColumns = {@JoinColumn(name = "menu_id")}, inverseJoinColumns = {@JoinColumn(name = "item_id")})
     private Set<ItemEntity> items = new HashSet<>();
 

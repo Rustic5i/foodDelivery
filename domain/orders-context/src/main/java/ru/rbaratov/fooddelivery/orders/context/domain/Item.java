@@ -1,13 +1,13 @@
 package ru.rbaratov.fooddelivery.orders.context.domain;
 
-import ru.rbaratov.fooddelivery.common.domain.AbstractDomain;
 import ru.rbaratov.fooddelivery.common.valueobject.Money;
 import ru.rbaratov.fooddelivery.common.valueobject.item.ItemName;
 
+import java.util.UUID;
+
 /**
  * Выбранный товар.
- * В данном контексте, данные о товаре нельзя изменить, и нельзя создать новый товар.
- * По этому данную сущность помечена как @Immutable
+ * В данном контексте, данные о товаре нельзя изменить после создания.
  */
 public class Item extends AbstractDomain {
 
@@ -21,9 +21,7 @@ public class Item extends AbstractDomain {
      */
     private Money price;
 
-    public Item(ItemName name, Money price) {
-        this.name = name;
-        this.price = price;
+    private Item() {
     }
 
     /**
@@ -42,5 +40,53 @@ public class Item extends AbstractDomain {
      */
     public ItemName getName() {
         return name;
+    }
+
+    public static IdBuilder startRevival() {
+        return new Builder();
+    }
+
+    public interface IdBuilder {
+        NameBuilder requiredId(UUID id);
+    }
+
+    public interface NameBuilder {
+        PriceBuilder requiredName(ItemName name);
+    }
+
+    public interface PriceBuilder {
+        FinalBuilder requiredPrice(Money price);
+    }
+
+    public interface FinalBuilder {
+        Item revive();
+    }
+
+    private static class Builder implements IdBuilder, NameBuilder, PriceBuilder, FinalBuilder {
+
+        private Item item = new Item();
+
+        @Override
+        public PriceBuilder requiredName(ItemName name) {
+            item.name = name;
+            return this;
+        }
+
+        @Override
+        public FinalBuilder requiredPrice(Money price) {
+            item.price = price;
+            return this;
+        }
+
+        @Override
+        public NameBuilder requiredId(UUID id) {
+            item.id = id;
+            return this;
+        }
+
+        @Override
+        public Item revive() {
+            return item;
+        }
     }
 }

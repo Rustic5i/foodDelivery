@@ -1,10 +1,9 @@
 package ru.rbaratov.fooddelivery.menu.manager.context.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import ru.rbaratov.fooddelivery.common.entity.AbstractEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,13 +12,13 @@ import java.util.Collection;
  * Категория товара
  */
 @Entity
-@Table(name = "item_categories")
-public final class ItemCategoryEntity extends AbstractEntity {
+@Table(name = "categories")
+public final class CategoryEntity {
 
     /**
      * Имя категории
      */
-    @Column(name = "name", nullable = false, unique = true)
+    @Id
     private String name;
 
     /**
@@ -28,7 +27,11 @@ public final class ItemCategoryEntity extends AbstractEntity {
     @OneToMany(mappedBy = "category")
     private Collection<ItemEntity> items = new ArrayList<>();
 
-    public ItemCategoryEntity() {
+    public CategoryEntity() {
+    }
+
+    public CategoryEntity(String name) {
+        this.name = name;
     }
 
     public String getName() {

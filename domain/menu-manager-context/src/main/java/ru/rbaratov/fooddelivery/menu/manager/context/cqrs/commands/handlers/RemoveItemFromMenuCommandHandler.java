@@ -7,12 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rbaratov.fooddelivery.common.cqrs.command.Command;
 import ru.rbaratov.fooddelivery.common.cqrs.handler.CommandHandler;
-import ru.rbaratov.fooddelivery.common.valueobject.item.MenuName;
 import ru.rbaratov.fooddelivery.menu.manager.context.cqrs.commands.RemoveItemFromMenuCommand;
 import ru.rbaratov.fooddelivery.menu.manager.context.domain.Menu;
 import ru.rbaratov.fooddelivery.menu.manager.context.domain.repository.MenuAggregateRepository;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @Service
@@ -39,13 +37,11 @@ public class RemoveItemFromMenuCommandHandler implements CommandHandler<Void, Re
     public Void execute(RemoveItemFromMenuCommand command) {
         Objects.requireNonNull(command, "При удалении товара из меню, не было передана информация о товаре");
 
-        MenuName menuName = new MenuName(command.getMenuName());
-        Menu menu = aggregateRepository.findByName(menuName)
-                .orElseThrow(() -> new RuntimeException(MessageFormat.format("Меню с именем {0} не найдено", menuName.value())));
+        Menu menu = aggregateRepository.getMenu();
         menu.deleteItem(command.getItemId());
         aggregateRepository.save(menu);
 
-        LOGGER.info("Из меню {} был удален товар с id {}", menuName.value(), command.getItemId());
+        LOGGER.info("Из меню был удален товар с id {}", command.getItemId());
         return null;
     }
 

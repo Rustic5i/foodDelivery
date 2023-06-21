@@ -1,6 +1,7 @@
 package ru.rbaratov.fooddelivery.orders.context.dto;
 
 public class CartItemDTO {
+
     /**
      * Товар
      */
@@ -9,12 +10,12 @@ public class CartItemDTO {
     /**
      * Количество товара
      */
-    private Integer quantity = 0;
+    private Integer quantity;
 
     /**
      * Итоговая цена
      */
-    private Float totalPrice = 0f;
+    private Float totalPrice;
 
     public ItemDTO getItem() {
         return item;

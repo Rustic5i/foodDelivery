@@ -1,30 +1,28 @@
 package ru.rbaratov.fooddelivery.menu.manager.context.domain;
 
-import ru.rbaratov.fooddelivery.common.domain.AbstractDomain;
-import ru.rbaratov.fooddelivery.common.valueobject.item.CategoryName;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ItemCategory extends AbstractDomain {
+public class Category {
+
     /**
      * Имя категории
      */
-    private CategoryName name;
+    private String name;
 
     /**
      * Список продуктов
      */
     private Collection<Item> items = new ArrayList<>();
 
-    public ItemCategory(CategoryName name) {
+    public Category(String name) {
         if (name == null) {
             throw new RuntimeException("Названия категории товара не было указано");
         }
         this.name = name;
     }
 
-    public CategoryName nameCategory() {
+    public String getName() {
         return name;
     }
 }

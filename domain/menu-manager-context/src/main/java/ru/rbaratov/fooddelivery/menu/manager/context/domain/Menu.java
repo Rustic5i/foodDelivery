@@ -2,11 +2,8 @@ package ru.rbaratov.fooddelivery.menu.manager.context.domain;
 
 import org.springframework.lang.NonNull;
 import ru.rbaratov.fooddelivery.common.domain.AbstractDomain;
-import ru.rbaratov.fooddelivery.common.valueobject.item.CategoryName;
 import ru.rbaratov.fooddelivery.common.valueobject.item.ItemName;
-import ru.rbaratov.fooddelivery.common.valueobject.item.MenuName;
 
-import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,16 +16,14 @@ public class Menu extends AbstractDomain {
     /**
      * Названия меню
      */
-    private MenuName name;
+    private String name;
 
     /**
      * Список товара
      */
     private Set<Item> items = new HashSet<>();
 
-
-    public Menu(MenuName name) {
-        this.name = name;
+    private Menu() {
     }
 
     /**
@@ -40,9 +35,9 @@ public class Menu extends AbstractDomain {
         if (newItem == null) {
             throw new RuntimeException("В меню нельзя добавить пустой товар");
         }
-        if (newItem.getId() == null) {
-            throw new RuntimeException(MessageFormat.format("Нельзя добавить в меню {0} не сохраненный товар с именем {1}", name.value(), newItem.getName().value()));
-        }
+//        if (newItem.getId() == null) {
+//            throw new RuntimeException(MessageFormat.format("Нельзя добавить в меню {0} не сохраненный товар с именем {1}", name.value(), newItem.getName().value()));
+//        }
         if (items.contains(newItem)) {
             throw new RuntimeException("В меню уже присутствует данный товар");
         }
@@ -89,7 +84,7 @@ public class Menu extends AbstractDomain {
         return items.stream().filter(p -> p.getName().equals(itemName)).findFirst();
     }
 
-    public MenuName getName() {
+    public String getName() {
         return name;
     }
 
@@ -97,6 +92,36 @@ public class Menu extends AbstractDomain {
         return items;
     }
 
-    public void createNewCategoryItems(CategoryName categoryName) {
+    public static ItemsBuilder startRevival(UUID id, String name) {
+        return new Builder(id, name);
+    }
+
+    public interface ItemsBuilder {
+        FinalBuilder requiredItems(Set<Item> items);
+    }
+
+    public interface FinalBuilder {
+        Menu revive();
+    }
+
+    private static class Builder implements ItemsBuilder, FinalBuilder {
+
+        private Menu menu = new Menu();
+
+        public Builder(UUID id, String name) {
+            this.menu.id = id;
+            this.menu.name = name;
+        }
+
+        @Override
+        public FinalBuilder requiredItems(Set<Item> items) {
+            this.menu.items = items;
+            return this;
+        }
+
+        @Override
+        public Menu revive() {
+            return menu;
+        }
     }
 }

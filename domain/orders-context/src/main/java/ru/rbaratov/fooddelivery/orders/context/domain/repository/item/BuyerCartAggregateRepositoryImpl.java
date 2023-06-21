@@ -2,10 +2,10 @@ package ru.rbaratov.fooddelivery.orders.context.domain.repository.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.rbaratov.fooddelivery.orders.context.domain.BuyerCart;
+import ru.rbaratov.fooddelivery.orders.context.domain.Cart;
 import ru.rbaratov.fooddelivery.orders.context.domain.mapper.BuyerCartAggregateMapper;
 import ru.rbaratov.fooddelivery.orders.context.domain.valueobject.PhoneNumber;
-import ru.rbaratov.fooddelivery.orders.context.entity.BuyerCartEntity;
+import ru.rbaratov.fooddelivery.orders.context.entity.CartEntity;
 import ru.rbaratov.fooddelivery.orders.context.repository.CartEntityRepository;
 
 import java.util.Optional;
@@ -20,8 +20,8 @@ public class BuyerCartAggregateRepositoryImpl implements BuyerCartAggregateRepos
     private BuyerCartAggregateMapper mapper;
 
     @Override
-    public Optional<BuyerCart> findByBuyerPhoneNumber(PhoneNumber phoneNumber) {
-        Optional<BuyerCartEntity> byBuyerPhoneNumber = cartEntityRepository.findByBuyerPhoneNumber(phoneNumber.value());
+    public Optional<Cart> findByBuyerPhoneNumber(PhoneNumber phoneNumber) {
+        Optional<CartEntity> byBuyerPhoneNumber = cartEntityRepository.findByBuyerPhoneNumber(phoneNumber.value());
         if (byBuyerPhoneNumber.isEmpty()){
             return Optional.empty();
         }
@@ -29,9 +29,9 @@ public class BuyerCartAggregateRepositoryImpl implements BuyerCartAggregateRepos
     }
 
     @Override
-    public void save(BuyerCart buyerCart) {
-        BuyerCartEntity entity = mapper.toBuyerCartEntity(buyerCart);
-        cartEntityRepository.save(entity);
+    public void save(Cart cart) {
+        CartEntity entity = mapper.toBuyerCartEntity(cart);
+        CartEntity save = cartEntityRepository.save(entity);
     }
 }
 

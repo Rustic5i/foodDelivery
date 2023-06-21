@@ -13,9 +13,13 @@ import java.util.UUID;
 public class AbstractEntity extends EntityWithoutId {
     @Id
     @GeneratedValue
-    private UUID id;
+    protected UUID id;
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

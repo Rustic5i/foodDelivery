@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rbaratov.fooddelivery.orders.context.buyer.security.ArigatoUserDetails;
 import ru.rbaratov.fooddelivery.orders.context.domain.Buyer;
-import ru.rbaratov.fooddelivery.orders.context.repository.BuyerRepository;
+import ru.rbaratov.fooddelivery.orders.context.entity.BuyerEntity;
+import ru.rbaratov.fooddelivery.orders.context.repository.BuyerEntityRepository;
 import ru.rbaratov.fooddelivery.orders.context.domain.valueobject.PhoneNumber;
 import ru.rbaratov.fooddelivery.orders.context.buyer.security.Privilege;
 
@@ -26,33 +27,34 @@ public class DaoUserDetailsService implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DaoUserDetailsService.class);
 
     @Autowired
-    private BuyerRepository buyerRepository;
+    private BuyerEntityRepository buyerEntityRepository;
 
     @Lazy
     @Autowired
     protected DaoUserDetailsService daoUserDetailsService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LOGGER.info("Попытка входа под пользователем {}", username);
-        return daoUserDetailsService.getUserDetails(username);
+    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
+        LOGGER.info("Попытка входа под пользователем {}", phoneNumber);
+        return daoUserDetailsService.getUserDetails(phoneNumber);
     }
 
     @Transactional
-    public ArigatoUserDetails getUserDetails(String username) {
-        Optional<Buyer> currentUser = buyerRepository.findByPhoneNumber(new PhoneNumber(username)); //todo заменить потом Buyer на User
+    public ArigatoUserDetails getUserDetails(String phoneNumber) {
+        String validPhoneNumber = new PhoneNumber(phoneNumber).value();
+        Optional<BuyerEntity> currentUser = buyerEntityRepository.findByPhoneNumber(validPhoneNumber); //todo заменить потом Buyer на User
         if (currentUser.isEmpty()) {
-            throw new UsernameNotFoundException(MessageFormat.format("Пользователь {0} не найден", username));
+            throw new UsernameNotFoundException(MessageFormat.format("Пользователь {0} не найден", phoneNumber));
         }
         return createUserDetail(currentUser.get(), Arrays.asList(new Privilege("Buyer")));
     }
 
-    private ArigatoUserDetails createUserDetail(Buyer currentUser, Collection<Privilege> userPrivileges) {
+    private ArigatoUserDetails createUserDetail(BuyerEntity currentUser, Collection<Privilege> userPrivileges) {
         ArigatoUserDetails uzedoUserPrincipal = new ArigatoUserDetails(
                 userPrivileges,
                 currentUser.isActive(),
                 "$2a$12$UimqVbH1Kqb0x47aE70eluWSdNKTEmALljdieNnMzlMVyoRObFDAm",//todo 123
-                currentUser.getPhoneNumber().value());
+                currentUser.getPhoneNumber());
         return uzedoUserPrincipal;
     }
 }

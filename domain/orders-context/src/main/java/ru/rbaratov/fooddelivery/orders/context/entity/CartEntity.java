@@ -1,5 +1,6 @@
 package ru.rbaratov.fooddelivery.orders.context.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,33 +13,31 @@ import ru.rbaratov.fooddelivery.common.entity.AbstractEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.lang.Float.valueOf;
-
 /**
  * Корзина покупателя
  */
 @Entity
-@Table(name = "buyers_carts")
-public class BuyerCartEntity extends AbstractEntity {
+@Table(name = "carts")
+public class CartEntity extends AbstractEntity {
 
     /**
      * Пользователь
      */
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "buyer_id", referencedColumnName = "id")
+    @JoinColumn(name = "buyer_id", referencedColumnName = "id", unique = true)
     private BuyerEntity buyer;
 
     /**
      * Итоговая цена
      */
     @Column(name = "total_price", nullable = false)
-    private Float totalPrice = valueOf(0);
+    private Float totalPrice;
 
     /**
      * Список выбранных товаров
      */
-    @OneToMany(mappedBy = "buyerCart")
-    private Set<SelectItemInCartEntity> selectItems = new HashSet<>();
+    @OneToMany(mappedBy = "buyerCart", cascade = CascadeType.ALL)
+    private Set<CartItemEntity> selectItems = new HashSet<>();
 
     public BuyerEntity getBuyer() {
         return buyer;
@@ -52,11 +51,15 @@ public class BuyerCartEntity extends AbstractEntity {
         this.totalPrice = totalPrice;
     }
 
-    public Set<SelectItemInCartEntity> getSelectItems() {
+    public Set<CartItemEntity> getCartItemEntity() {
         return selectItems;
     }
 
-    public void setSelectItems(Set<SelectItemInCartEntity> selectItems) {
+    public void setSelectItems(Set<CartItemEntity> selectItems) {
         this.selectItems = selectItems;
+    }
+
+    public void setBuyer(BuyerEntity buyer) {
+        this.buyer = buyer;
     }
 }

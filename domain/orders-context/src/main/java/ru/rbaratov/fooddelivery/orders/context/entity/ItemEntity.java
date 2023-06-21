@@ -2,10 +2,14 @@ package ru.rbaratov.fooddelivery.orders.context.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.Immutable;
 import ru.rbaratov.fooddelivery.common.entity.AbstractEntity;
 import ru.rbaratov.fooddelivery.common.valueobject.SizeUnit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Выбранный товар.
@@ -64,6 +68,9 @@ public class ItemEntity extends AbstractEntity {
      */
     @Column(name = "is_set", nullable = false)
     private boolean isSet = false;
+
+    @OneToMany(mappedBy = "item")
+    private List<CartItemEntity> cartItems = new ArrayList<>();
 
     public String getName() {
         return name;

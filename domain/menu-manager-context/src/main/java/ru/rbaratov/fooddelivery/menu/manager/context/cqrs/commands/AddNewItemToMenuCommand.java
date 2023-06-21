@@ -9,11 +9,6 @@ import ru.rbaratov.fooddelivery.common.valueobject.SizeUnit;
 public class AddNewItemToMenuCommand implements Command {
 
     /**
-     * Названия меню
-     */
-    private String menuName;
-
-    /**
      * Имя товара
      */
     private String itemName;
@@ -56,10 +51,6 @@ public class AddNewItemToMenuCommand implements Command {
         return false;
     }
 
-    public String getMenuName() {
-        return menuName;
-    }
-
     public String getItemName() {
         return itemName;
     }
@@ -86,10 +77,6 @@ public class AddNewItemToMenuCommand implements Command {
 
     public String getItemCategory() {
         return itemCategory;
-    }
-
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
     }
 
     public void setItemName(String itemName) {

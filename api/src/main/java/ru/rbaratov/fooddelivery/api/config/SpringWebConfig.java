@@ -26,31 +26,31 @@ public class SpringWebConfig {
      */
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-//        http.csrf()
-//                .disable()
-//                .authorizeHttpRequests(
-//                        (requests) -> requests
-//                                .requestMatchers(new AntPathRequestMatcher("**" + "admin" + "/**")).permitAll()
-//                                .requestMatchers(new AntPathRequestMatcher("**" + "admin" + "/**"))
-//                                .authenticated()
-//                )
-//                .formLogin()
-//                .and()
-//                .logout().logoutSuccessUrl("/");
+        http.csrf()
+                .disable()
+                .authorizeHttpRequests(
+                        (requests) -> requests
+                                .requestMatchers(new AntPathRequestMatcher("**" + "admin" + "/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("**" + "admin" + "/**"))
+                                .authenticated()
+                )
+                .formLogin()
+                .and()
+                .logout().logoutSuccessUrl("/");
 
-//        http.csrf()
-//                .disable()
-//                .authorizeHttpRequests(
-//                        authz -> authz
-//                                .requestMatchers(new AntPathRequestMatcher("**" + "admin" + "/**")).permitAll()
-//                                .anyRequest().authenticated()
-//                )
-//                .formLogin()
-//                .and()
-//                .logout().logoutSuccessUrl("/");
+        http.csrf()
+                .disable()
+                .authorizeHttpRequests(
+                        authz -> authz
+                                .requestMatchers(new AntPathRequestMatcher("**" + "admin" + "/**")).permitAll()
+                                .anyRequest().authenticated()
+                )
+                .formLogin()
+                .and()
+                .logout().logoutSuccessUrl("/");
 
-        http.csrf().disable()
-                .authorizeRequests().anyRequest().permitAll();
+//        http.csrf().disable()
+//                .authorizeRequests().anyRequest().permitAll();
         return http.build();
     }
 

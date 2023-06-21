@@ -16,15 +16,8 @@ public class RemoveItemFromMenuCommand implements Command {
     @NonNull
     private UUID itemId;
 
-    /**
-     * Имя меню
-     */
-    @NonNull
-    private String menuName;
-
-    public RemoveItemFromMenuCommand(UUID itemId, String menuName) {
+    public RemoveItemFromMenuCommand(UUID itemId) {
         this.itemId = itemId;
-        this.menuName = menuName;
     }
 
     @Override
@@ -34,9 +27,5 @@ public class RemoveItemFromMenuCommand implements Command {
 
     public UUID getItemId() {
         return itemId;
-    }
-
-    public String getMenuName() {
-        return menuName;
     }
 }
